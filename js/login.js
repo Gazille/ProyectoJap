@@ -7,10 +7,11 @@ const removeError = () => {
   document.getElementById("passwordUser").classList.remove("is-invalid");
   document.getElementById("emailUser").classList.remove("is-invalid");
 };
-
-const login = () => {
+//Almacenamiento de datos del usuario en el storage correspondiente
+const almacenarStorage = (tipoDeStorage) => {
   const emailUsuario = document.getElementById("emailUser").value;
   const passwordUsuario = document.getElementById("passwordUser").value;
+
   if (emailUsuario === "") {
     addError("emailUser");
     setTimeout(() => {
@@ -23,10 +24,21 @@ const login = () => {
         removeError();
       }, 5000);
     } else {
-      localStorage.setItem("Email", emailUsuario);
-      localStorage.setItem("Password", passwordUsuario);
+      tipoDeStorage.setItem("Email", emailUsuario);
+      tipoDeStorage.setItem("Password", passwordUsuario);
       location.href = "index.html";
     }
+  }
+};
+
+const login = () => {
+  const recordarUsuario = document.getElementById("recordarUsuario").checked;
+  if (recordarUsuario === true) {
+    //Validacion de login sin recordar usuario
+    almacenarStorage(localStorage);
+    //Validacion de login con recordar usuario activado
+  } else {
+    almacenarStorage(sessionStorage);
   }
 };
 
