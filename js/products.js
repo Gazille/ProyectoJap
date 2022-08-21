@@ -4,10 +4,11 @@ const callApiCars = async () => {
   const resultado = await respuesta.json();
   const arrayAutos = resultado.products;
   document.getElementById("catName").innerHTML = resultado.catName;
-  arrayAutos.forEach((element) => {
-    document.getElementById(
-      "containerAutos"
-    ).innerHTML += ` <div class="container">
+  arrayAutos.forEach(
+    (element) =>
+      (document.getElementById(
+        "containerAutos"
+      ).innerHTML += ` <div class="container">
     <div class="list-group-item list-group-item-action cursor-active">
       <div class="row">
         <div class="col-3">
@@ -22,8 +23,8 @@ const callApiCars = async () => {
         </div>
       </div>
     </div>
-  </div> `;
-  });
+  </div> `)
+  );
 };
 
 callApiCars();

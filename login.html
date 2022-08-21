@@ -4,6 +4,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="google-signin-client_id"
+    content="728705234649-5as4bltmpces5at8v0grpf9c2df19hds.apps.googleusercontent.com">
   <title>eMercado - Todo lo que busques está aquí</title>
 
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -40,6 +42,10 @@
           <input type="checkbox" id="recordarUsuario" value="recordarme"> Recordar Usuario
         </div>
         <button class="w-10 btn btn-lg btn-primary" type="submit" onclick="login()" id="enviar">Enviar</button>
+        <div id="g_id_onload" data-client_id="728705234649-5as4bltmpces5at8v0grpf9c2df19hds.apps.googleusercontent.com"
+          data-callback="handleCredentialResponse">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
       </div>
     </div>
   </main>
@@ -54,6 +60,7 @@
     </div>
   </footer>
   <script src="js/login.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </body>
 
 </html>
