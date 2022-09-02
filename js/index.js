@@ -1,6 +1,9 @@
 const comprobarLogeo = () => {
   if (localStorage.Email === undefined && sessionStorage.Email === undefined) {
     location.href = "login.html";
+  } else {
+    const usuario = localStorage.Email;
+    document.getElementById("usuario").innerHTML = usuario;
   }
 };
 
