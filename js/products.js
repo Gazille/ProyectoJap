@@ -1,3 +1,16 @@
+const comprobarLogeo = () => {
+  if (localStorage.Email === undefined && sessionStorage.Email === undefined) {
+    location.href = "login.html";
+  } else {
+    const usuario = localStorage.Email;
+    document.getElementById("usuario").innerHTML = usuario;
+  }
+  document.getElementById("salir").addEventListener("click", function () {
+    localStorage.removeItem("Email");
+    location.href = "login.html";
+  });
+};
+
 //Mostrar los productos de la api
 const forEachArray = (array) => {
   array.forEach(
@@ -87,6 +100,41 @@ const callApi = async () => {
     eliminarProductos();
     forEachArray(nuevoArray);
   });
+
+  // Buscador en tiempo real
+  document.getElementById("buscar").addEventListener("keyup", function () {
+    const productoBuscar = document.getElementById("buscar").value;
+    const productoLowerCase = productoBuscar.toLowerCase();
+
+    arrayProducts.forEach((element) => {
+      const nombre = element.name.toLowerCase();
+      if (nombre.indexOf(productoLowerCase) !== -1) {
+        eliminarProductos();
+        document.getElementById(
+          "containerAutos"
+        ).innerHTML += ` <div class="container">
+    <div class="list-group-item list-group-item-action cursor-active">
+      <div class="row">
+        <div class="col-3">
+          <img  src="${element.image}" alt="imgWay" class="img-thumbnail">
+        </div>
+        <div class="col">
+          <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">${element.name} - ${element.currency} ${element.cost}</h4>
+            <p class="text-end"> <span>${element.soldCount}</span> Vendidos</p>
+          </div>
+          <p class="mb-1">${element.description}</p>
+        </div>
+      </div>
+    </div>
+  </div> `;
+      }
+    });
+    if (!productoBuscar) {
+      eliminarProductos();
+      forEachArray(arrayProducts);
+    }
+  });
 };
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -99,4 +147,5 @@ document.addEventListener("DOMContentLoaded", function () {
       eliminarProductos();
       callApi();
     });
+  comprobarLogeo();
 });

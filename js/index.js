@@ -5,6 +5,10 @@ const comprobarLogeo = () => {
     const usuario = localStorage.Email;
     document.getElementById("usuario").innerHTML = usuario;
   }
+  document.getElementById("salir").addEventListener("click", function () {
+    localStorage.removeItem("Email");
+    location.href = "login.html";
+  });
 };
 
 document.addEventListener("DOMContentLoaded", function () {
