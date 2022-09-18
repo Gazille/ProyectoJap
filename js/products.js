@@ -11,13 +11,18 @@ const comprobarLogeo = () => {
   });
 };
 
+const setProductId = (id) => {
+  localStorage.setItem("productID", id);
+  location.href = "product-info.html";
+};
+
 //Mostrar los productos de la api
 const forEachArray = (array) => {
   array.forEach(
     (element) =>
       (document.getElementById(
         "containerAutos"
-      ).innerHTML += ` <div class="container">
+      ).innerHTML += ` <div class="container" onClick="setProductId(${element.id})">
   <div class="list-group-item list-group-item-action cursor-active">
     <div class="row">
       <div class="col-3">
