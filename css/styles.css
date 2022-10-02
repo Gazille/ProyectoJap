@@ -219,3 +219,11 @@ a.custom-card:hover {
 #estrellasDiv {
   margin-top: 75px;
 }
+
+#productosRelacionados {
+  display: flex;
+  flex-flow: row wrap;
+  position: relative;
+  top: 50%;
+  left: 25%;
+}

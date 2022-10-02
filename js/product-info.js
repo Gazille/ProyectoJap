@@ -11,6 +11,13 @@ const comprobarLogeo = () => {
   });
 };
 
+// Cambiar Producto si clickeamos en relacionados
+
+const clickProductRel = (id) => {
+  localStorage.setItem("productID", id);
+  location.href = "product-info.html";
+};
+
 //Llamado a la api producto
 const callApi = async () => {
   const url =
@@ -71,6 +78,23 @@ const callApi = async () => {
   document.getElementById("descripcion").innerHTML += resultado.description;
   document.getElementById("categoria").innerHTML += resultado.category;
   document.getElementById("vendidos").innerHTML += resultado.soldCount;
+
+  // Productos Relacionados
+
+  const productRel = () => {
+    resultado.relatedProducts.forEach((element) => {
+      document.getElementById(
+        "productosRelacionados"
+      ).innerHTML += `<div class="  card" onClick="clickProductRel(${element.id})" style="  width: 18rem;">
+      <img src="${element.image}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <p class="card-text">${element.name}</p>
+      </div>
+    </div>`;
+    });
+  };
+
+  productRel();
 };
 
 const callApiComentarios = async () => {
@@ -130,7 +154,7 @@ const obtenerFecha = () => {
     date.getMonth().toString(),
     date.getDate().toString(),
   ];
-  console.log(fecha[1].slice(-2));
+
   // Fecha ordenada
   if (fecha[1] < 10) {
     return fecha[0] + "-0" + fecha[1] + "-" + fecha[2];
