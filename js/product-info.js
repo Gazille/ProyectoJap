@@ -18,6 +18,22 @@ const clickProductRel = (id) => {
   location.href = "product-info.html";
 };
 
+//Aviso sobre el exito de agregar el producto al carrito
+
+const alertaCompra = () => {
+  document.getElementById(
+    "alertaSuccess"
+  ).innerHTML = `<div class="alert alert-success" role="alert">
+      ¡Se añadio el producto al carrito!
+    </div>`;
+};
+
+//Remover alerta
+
+const removerAlertaCompra = () => {
+  document.getElementById("alertaSuccess").innerHTML = ``;
+};
+
 //Llamado a la api producto
 const callApi = async () => {
   const url =
@@ -93,8 +109,61 @@ const callApi = async () => {
     </div>`;
     });
   };
-
   productRel();
+
+  //Guardar Objeto del producto que el usuario desea comprar
+
+  document
+    .getElementById("enviarAlCarrito")
+    .addEventListener("click", function () {
+      const arrayCarritoCompra = () => {
+        if (!localStorage.arrayCarrito) {
+          //Si no existe el arrayCarrito ejecuta este codigo
+          let objetoSeleccionado = {
+            id: resultado.id,
+            name: resultado.name,
+            currency: resultado.currency,
+            unitCost: resultado.cost,
+            image: resultado.images[0],
+          };
+          const pushObjeto = (objeto) => {
+            let arrayCarro = [];
+            localStorage.setItem("arrayCarrito", JSON.stringify(arrayCarro));
+            arrayCarro = JSON.parse(localStorage.getItem("arrayCarrito")) || [];
+            arrayCarro.push(objeto);
+            localStorage.setItem("arrayCarrito", JSON.stringify(arrayCarro));
+          };
+          pushObjeto(objetoSeleccionado);
+          //Alertas
+          alertaCompra();
+          setTimeout(() => {
+            removerAlertaCompra();
+          }, 3000);
+        } else {
+          //Si Ya existe el array Con algun objeto en el carrito ejecuta este codigo
+          let objetoSeleccionado = {
+            id: resultado.id,
+            name: resultado.name,
+            currency: resultado.currency,
+            unitCost: resultado.cost,
+            image: resultado.images[0],
+          };
+          const pushObjeto = (objeto) => {
+            let arrayCarro = [];
+            arrayCarro = JSON.parse(localStorage.getItem("arrayCarrito")) || [];
+            arrayCarro.push(objeto);
+            localStorage.setItem("arrayCarrito", JSON.stringify(arrayCarro));
+          };
+          pushObjeto(objetoSeleccionado);
+          //Alertas
+          alertaCompra();
+          setTimeout(() => {
+            removerAlertaCompra();
+          }, 3000);
+        }
+      };
+      arrayCarritoCompra();
+    });
 };
 
 const callApiComentarios = async () => {

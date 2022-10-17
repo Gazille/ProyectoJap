@@ -41,7 +41,7 @@ const login = () => {
     almacenarStorage(sessionStorage);
   }
 };
-
+// Desencriptar Json Web Token
 function parseJwt(token) {
   var base64Url = token.split(".")[1];
   var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -57,7 +57,7 @@ function parseJwt(token) {
 
   return JSON.parse(jsonPayload);
 }
-
+//Login con google
 function handleCredentialResponse({ credential }) {
   const Payload = parseJwt(credential);
   localStorage.setItem("Email", Payload.email);
