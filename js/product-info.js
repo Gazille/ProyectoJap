@@ -1,16 +1,3 @@
-const comprobarLogeo = () => {
-  if (localStorage.Email === undefined && sessionStorage.Email === undefined) {
-    location.href = "login.html";
-  } else {
-    const usuario = localStorage.Email;
-    document.getElementById("usuario").innerHTML = usuario;
-  }
-  document.getElementById("salir").addEventListener("click", function () {
-    localStorage.removeItem("Email");
-    location.href = "login.html";
-  });
-};
-
 // Cambiar Producto si clickeamos en relacionados
 
 const clickProductRel = (id) => {
@@ -18,7 +5,7 @@ const clickProductRel = (id) => {
   location.href = "product-info.html";
 };
 
-//Aviso sobre el exito de agregar el producto al carrito
+//alerta sobre el exito de agregar el producto al carrito
 
 const alertaCompra = () => {
   document.getElementById(
@@ -28,7 +15,7 @@ const alertaCompra = () => {
     </div>`;
 };
 
-//Remover alerta
+//Remover alerta de la funcion de la linea 10
 
 const removerAlertaCompra = () => {
   document.getElementById("alertaSuccess").innerHTML = ``;
@@ -95,7 +82,7 @@ const callApi = async () => {
   document.getElementById("categoria").innerHTML += resultado.category;
   document.getElementById("vendidos").innerHTML += resultado.soldCount;
 
-  // Productos Relacionados
+  //Mostrar Productos Relacionados
 
   const productRel = () => {
     resultado.relatedProducts.forEach((element) => {
@@ -165,7 +152,7 @@ const callApi = async () => {
       arrayCarritoCompra();
     });
 };
-
+//Muestra los comentarios por default de cada producto, esto es devuelto por la api
 const callApiComentarios = async () => {
   const urlComentarios =
     "https://japceibal.github.io/emercado-api/products_comments/" +
@@ -200,7 +187,7 @@ const callApiComentarios = async () => {
   });
 };
 
-//Estrellas-Puntuacion
+//Estrellas-Puntuacion la cual contiene cada comentario
 const agregarEstrellas = (cantidad) => {
   let estrellas = "";
 
@@ -273,7 +260,7 @@ const obtenerHora = () => {
   }
 };
 
-//Agregar un nuevo comentario a la pagina
+//Agregar de forma manual un nuevo comentario a la pagina
 
 document
   .getElementById("enviarComentario")
@@ -334,5 +321,4 @@ document
 document.addEventListener("DOMContentLoaded", function () {
   callApi();
   callApiComentarios();
-  comprobarLogeo();
 });

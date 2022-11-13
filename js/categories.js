@@ -6,19 +6,6 @@ let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 
-const comprobarLogeo = () => {
-  if (localStorage.Email === undefined && sessionStorage.Email === undefined) {
-    location.href = "login.html";
-  } else {
-    const usuario = localStorage.Email;
-    document.getElementById("usuario").innerHTML = usuario;
-  }
-  document.getElementById("salir").addEventListener("click", function () {
-    localStorage.removeItem("Email");
-    location.href = "login.html";
-  });
-};
-
 function sortCategories(criteria, array) {
   let result = [];
   if (criteria === ORDER_ASC_BY_NAME) {
@@ -173,5 +160,4 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
       showCategoriesList();
     });
-  comprobarLogeo();
 });

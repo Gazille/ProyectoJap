@@ -1,16 +1,3 @@
-const comprobarLogeo = () => {
-  if (localStorage.Email === undefined && sessionStorage.Email === undefined) {
-    location.href = "login.html";
-  } else {
-    const usuario = localStorage.Email;
-    document.getElementById("usuario").innerHTML = usuario;
-  }
-  document.getElementById("salir").addEventListener("click", function () {
-    localStorage.removeItem("Email");
-    location.href = "login.html";
-  });
-};
-
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("autos").addEventListener("click", function () {
     localStorage.setItem("catID", 101);
@@ -24,6 +11,4 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("catID", 103);
     window.location = "products.html";
   });
-
-  comprobarLogeo();
 });

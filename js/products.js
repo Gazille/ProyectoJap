@@ -1,16 +1,4 @@
-const comprobarLogeo = () => {
-  if (localStorage.Email === undefined && sessionStorage.Email === undefined) {
-    location.href = "login.html";
-  } else {
-    const usuario = localStorage.Email;
-    document.getElementById("usuario").innerHTML = usuario;
-  }
-  document.getElementById("salir").addEventListener("click", function () {
-    localStorage.removeItem("Email");
-    location.href = "login.html";
-  });
-};
-
+//Guardo la id del producto que selecciono y redirijo hacia product-info
 const setProductId = (id) => {
   localStorage.setItem("productID", id);
   location.href = "product-info.html";
@@ -40,7 +28,7 @@ const forEachArray = (array) => {
 </div> `)
   );
 };
-
+//Esta funcion me vacia el containerAutos
 const eliminarProductos = () => {
   document.getElementById("containerAutos").innerHTML = ``;
 };
@@ -144,7 +132,6 @@ const callApi = async () => {
 
 document.addEventListener("DOMContentLoaded", function () {
   callApi();
-
   //Limpiar
   document
     .getElementById("clearRangeFilter")
@@ -152,5 +139,4 @@ document.addEventListener("DOMContentLoaded", function () {
       eliminarProductos();
       callApi();
     });
-  comprobarLogeo();
 });

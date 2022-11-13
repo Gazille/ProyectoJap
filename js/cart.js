@@ -1,20 +1,4 @@
-//Comprobar Login
-
-const comprobarLogeo = () => {
-  if (localStorage.Email === undefined && sessionStorage.Email === undefined) {
-    location.href = "login.html";
-  } else {
-    const usuario = localStorage.Email;
-    document.getElementById("usuario").innerHTML = usuario;
-  }
-  document.getElementById("salir").addEventListener("click", function () {
-    localStorage.removeItem("Email");
-    location.href = "login.html";
-  });
-};
-
 // Funcionalidades del Login
-
 (() => {
   "use strict";
 
@@ -42,7 +26,7 @@ const creadorGetElement = (id) => {
   document.getElementById(id).setAttribute("disabled", "");
 };
 
-//Remover clase disabled
+//Remover clase disabled del campo correspondiente
 
 const removerDisabled = (id) => {
   document.getElementById(id).removeAttribute("disabled", "");
@@ -137,7 +121,7 @@ const obtenerSubtotalGeneral = () => {
   subtotalGeneral = total;
 };
 
-//Calcular el Costo de Envio
+//Calcular el Costo de Envio dependiendo de lo que el usuario elija
 
 const obtenerCostoEnvio = () => {
   const envioPremium = document.getElementById("premium").checked;
@@ -157,6 +141,17 @@ const obtenerCostoEnvio = () => {
   }
 };
 
+//Funcion para eliminar el producto del carrito
+
+const eliminarDelCarrito = (id) => {
+  let arraySinObjeto = JSON.parse(localStorage.arrayCarrito).filter(
+    (buscar) => buscar.id !== id
+  );
+  localStorage.removeItem("arrayCarrito");
+  localStorage.setItem("arrayCarrito", JSON.stringify(arraySinObjeto));
+  location.href = "cart.html";
+};
+
 //Calcular el Precio Final entre el subtotal General y el Costo de Envio
 
 const obtenerTotalFinal = () => {
@@ -165,12 +160,12 @@ const obtenerTotalFinal = () => {
   document.getElementById("valorTotal").innerHTML =
     "USD" + " " + (subtotalGeneral + costoEnvio);
 };
-
+//Llamada a la api la cual devuelve el producto que esta fijo en el carrito
 const callApiCart = async () => {
   const url = CART_INFO_URL + 25801 + EXT_TYPE;
   const respuesta = await fetch(url);
   const resultado = await respuesta.json();
-
+  //Funcion que acepta un objeto para luego añadir los datos del mismo en la pagina
   const agregarAlCarrito = (obj) => {
     obj.forEach((datosArt) => {
       let idCantidadProductos = datosArt.id + datosArt.id;
@@ -195,13 +190,14 @@ const callApiCart = async () => {
             <p><input type="checkbox"> Este pedido es un regalo</p>
             <button type="button" class="btn  btn-success">Proceder Al Pago</button>
 
-            <button class="btn btn-danger" onClick="" type="button"><i class="fas fa-trash-alt"></i></button>
+            <button class="btn btn-danger" onClick="eliminarDelCarrito(${datosArt.id})" type="button"><i class="fas fa-trash-alt"></i></button>
           </div>
         </div>
       </div>
     </div>`;
     });
   };
+
   agregarAlCarrito(resultado.articles);
   //Añadir productos que el usuario eligió
   agregarAlCarrito(JSON.parse(localStorage.arrayCarrito));
@@ -209,7 +205,6 @@ const callApiCart = async () => {
 
 document.addEventListener("DOMContentLoaded", function () {
   callApiCart();
-  comprobarLogeo();
   setTimeout(() => {
     obtenerSubtotalGeneral();
     obtenerCostoEnvio();

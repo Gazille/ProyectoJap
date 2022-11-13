@@ -9,19 +9,6 @@ let PESO_SYMBOL = "UYU ";
 let PERCENTAGE_SYMBOL = "%";
 let MSG = "FUNCIONALIDAD NO IMPLEMENTADA";
 
-const comprobarLogeo = () => {
-  if (localStorage.Email === undefined && sessionStorage.Email === undefined) {
-    location.href = "login.html";
-  } else {
-    const usuario = localStorage.Email;
-    document.getElementById("usuario").innerHTML = usuario;
-  }
-  document.getElementById("salir").addEventListener("click", function () {
-    localStorage.removeItem("Email");
-    location.href = "login.html";
-  });
-};
-
 //Función que se utiliza para actualizar los costos de publicación
 function updateTotalCosts() {
   let unitProductCostHTML = document.getElementById("productCostText");
@@ -160,5 +147,4 @@ document.addEventListener("DOMContentLoaded", function (e) {
       });
     }
   });
-  comprobarLogeo();
 });

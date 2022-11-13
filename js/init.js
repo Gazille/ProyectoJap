@@ -9,6 +9,22 @@ const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 
+//Funcion la cual verifica si estoy logeado en la pagina web
+//Si Estoy logeado me deja navegar por toda la pagina, sino me redirecciona al login
+const comprobarLogeo = () => {
+  if (localStorage.Email === undefined && sessionStorage.Email === undefined) {
+    location.href = "login.html";
+  } else {
+    const usuario = localStorage.Email;
+    document.getElementById("usuario").innerHTML = usuario;
+  }
+  document.getElementById("salir").addEventListener("click", function () {
+    localStorage.clear();
+    location.href = "login.html";
+  });
+};
+comprobarLogeo();
+
 let showSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "block";
 };
